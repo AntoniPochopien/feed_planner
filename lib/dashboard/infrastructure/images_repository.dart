@@ -1,14 +1,19 @@
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:feed_planner/dashboard/domain/i_images_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 
 class ImagesRepository implements IImagesRepository {
-  
+
   @override
-  Future<Map<XFile, Color>> getDominantColorFromXFile(List<XFile> files) async {
+  Future<Map<XFile, Color>> getDominantColorFromXFiles(
+          List<XFile> files) async =>
+      await compute(_getDominantColorFromXFiles, files);
+
+  Future<Map<XFile, Color>> _getDominantColorFromXFiles(
+      List<XFile> files) async {
     final imagesWithDominatingColors = <XFile, Color>{};
     for (final i in files) {
       final colors = await _getColors(i);

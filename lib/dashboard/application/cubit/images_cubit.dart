@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:feed_planner/dashboard/domain/i_images_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,7 +25,7 @@ class ImagesCubit extends Cubit<ImagesState> {
 
   void computeColors() async {
     final imagesWithDominatingColors =
-        await compute(imagesRepository.getDominantColorFromXFile, state.images);
+        await imagesRepository.getDominantColorFromXFiles(state.images);
     log(imagesWithDominatingColors.toString());
   }
 }
