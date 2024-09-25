@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ImagesState {
-  List<XFile> get images => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  Map<XFile, Color> get imageWithDominatingColor =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of ImagesState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +33,7 @@ abstract class $ImagesStateCopyWith<$Res> {
           ImagesState value, $Res Function(ImagesState) then) =
       _$ImagesStateCopyWithImpl<$Res, ImagesState>;
   @useResult
-  $Res call({List<XFile> images});
+  $Res call({bool isLoading, Map<XFile, Color> imageWithDominatingColor});
 }
 
 /// @nodoc
@@ -49,13 +51,18 @@ class _$ImagesStateCopyWithImpl<$Res, $Val extends ImagesState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? images = null,
+    Object? isLoading = null,
+    Object? imageWithDominatingColor = null,
   }) {
     return _then(_value.copyWith(
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<XFile>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      imageWithDominatingColor: null == imageWithDominatingColor
+          ? _value.imageWithDominatingColor
+          : imageWithDominatingColor // ignore: cast_nullable_to_non_nullable
+              as Map<XFile, Color>,
     ) as $Val);
   }
 }
@@ -68,7 +75,7 @@ abstract class _$$ImagesStateImplCopyWith<$Res>
       __$$ImagesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<XFile> images});
+  $Res call({bool isLoading, Map<XFile, Color> imageWithDominatingColor});
 }
 
 /// @nodoc
@@ -84,13 +91,18 @@ class __$$ImagesStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? images = null,
+    Object? isLoading = null,
+    Object? imageWithDominatingColor = null,
   }) {
     return _then(_$ImagesStateImpl(
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
-              as List<XFile>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      imageWithDominatingColor: null == imageWithDominatingColor
+          ? _value._imageWithDominatingColor
+          : imageWithDominatingColor // ignore: cast_nullable_to_non_nullable
+              as Map<XFile, Color>,
     ));
   }
 }
@@ -98,21 +110,27 @@ class __$$ImagesStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ImagesStateImpl implements _ImagesState {
-  const _$ImagesStateImpl({final List<XFile> images = const []})
-      : _images = images;
+  const _$ImagesStateImpl(
+      {this.isLoading = false,
+      final Map<XFile, Color> imageWithDominatingColor = const {}})
+      : _imageWithDominatingColor = imageWithDominatingColor;
 
-  final List<XFile> _images;
   @override
   @JsonKey()
-  List<XFile> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
+  final bool isLoading;
+  final Map<XFile, Color> _imageWithDominatingColor;
+  @override
+  @JsonKey()
+  Map<XFile, Color> get imageWithDominatingColor {
+    if (_imageWithDominatingColor is EqualUnmodifiableMapView)
+      return _imageWithDominatingColor;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
+    return EqualUnmodifiableMapView(_imageWithDominatingColor);
   }
 
   @override
   String toString() {
-    return 'ImagesState(images: $images)';
+    return 'ImagesState(isLoading: $isLoading, imageWithDominatingColor: $imageWithDominatingColor)';
   }
 
   @override
@@ -120,12 +138,15 @@ class _$ImagesStateImpl implements _ImagesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ImagesStateImpl &&
-            const DeepCollectionEquality().equals(other._images, _images));
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            const DeepCollectionEquality().equals(
+                other._imageWithDominatingColor, _imageWithDominatingColor));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_images));
+  int get hashCode => Object.hash(runtimeType, isLoading,
+      const DeepCollectionEquality().hash(_imageWithDominatingColor));
 
   /// Create a copy of ImagesState
   /// with the given fields replaced by the non-null parameter values.
@@ -137,10 +158,14 @@ class _$ImagesStateImpl implements _ImagesState {
 }
 
 abstract class _ImagesState implements ImagesState {
-  const factory _ImagesState({final List<XFile> images}) = _$ImagesStateImpl;
+  const factory _ImagesState(
+      {final bool isLoading,
+      final Map<XFile, Color> imageWithDominatingColor}) = _$ImagesStateImpl;
 
   @override
-  List<XFile> get images;
+  bool get isLoading;
+  @override
+  Map<XFile, Color> get imageWithDominatingColor;
 
   /// Create a copy of ImagesState
   /// with the given fields replaced by the non-null parameter values.
