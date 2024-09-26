@@ -30,16 +30,20 @@ class _GridState extends State<Grid> {
 
   @override
   Widget build(BuildContext context) {
-    return ReorderableGridView.builder(
-        onReorder: context.read<ImagesCubit>().updateOrder,
-        onDragStart: (dragIndex) => HapticFeedback.lightImpact(),
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemCount: widget.imagesWithDominatingColor.length,
-        itemBuilder: (context, index) => GridItem(
-              key: ValueKey(widget.imagesWithDominatingColor[index].hashCode),
-              animationValue: _animation.value,
-              imageWithDominatingColor: widget.imagesWithDominatingColor[index],
-            ));
+    return BlocBuilder<ImagesCubit, ImagesState>(
+      builder: (context, state) => ReorderableGridView.builder(
+          onReorder: context.read<ImagesCubit>().updateOrder,
+          onDragStart: (dragIndex) => HapticFeedback.lightImpact(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3),
+          itemCount: widget.imagesWithDominatingColor.length,
+          dragEnabled: state.dragEnabled,
+          itemBuilder: (context, index) => GridItem(
+                key: ValueKey(widget.imagesWithDominatingColor[index].hashCode),
+                animationValue: _animation.value,
+                imageWithDominatingColor:
+                    widget.imagesWithDominatingColor[index],
+              )),
+    );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:feed_planner/dashboard/domain/i_images_repository.dart';
 import 'package:feed_planner/dashboard/domain/image_with_dominating_color.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,11 +35,13 @@ class ImagesCubit extends Cubit<ImagesState> {
   }
 
   void _computeAndUpdateMissingColors() async {
+    emit(state.copyWith(dragEnabled: false));
     final images =
         List<ImageWithDominatingColor>.from(state.imagesWithDominatingColor);
     final index = images.indexWhere((element) => element.color == null);
     if (index != -1) {
-      final result = await _computeColors([images[index].xfile]);
+      final result = await imagesRepository
+          .getDominantColorFromXFiles([images[index].xfile]);
       final entry = result.entries.first;
       final newImage =
           ImageWithDominatingColor(xfile: entry.key, color: entry.value);
@@ -48,8 +49,6 @@ class ImagesCubit extends Cubit<ImagesState> {
       images.insert(index, newImage);
       emit(state.copyWith(imagesWithDominatingColor: images));
     }
+    emit(state.copyWith(dragEnabled: true));
   }
-
-  Future<Map<XFile, Color>> _computeColors(List<XFile> files) async =>
-      await imagesRepository.getDominantColorFromXFiles(files);
 }

@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ImagesState {
+  bool get dragEnabled => throw _privateConstructorUsedError;
   List<ImageWithDominatingColor> get imagesWithDominatingColor =>
       throw _privateConstructorUsedError;
 
@@ -32,7 +33,9 @@ abstract class $ImagesStateCopyWith<$Res> {
           ImagesState value, $Res Function(ImagesState) then) =
       _$ImagesStateCopyWithImpl<$Res, ImagesState>;
   @useResult
-  $Res call({List<ImageWithDominatingColor> imagesWithDominatingColor});
+  $Res call(
+      {bool dragEnabled,
+      List<ImageWithDominatingColor> imagesWithDominatingColor});
 }
 
 /// @nodoc
@@ -50,9 +53,14 @@ class _$ImagesStateCopyWithImpl<$Res, $Val extends ImagesState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? dragEnabled = null,
     Object? imagesWithDominatingColor = null,
   }) {
     return _then(_value.copyWith(
+      dragEnabled: null == dragEnabled
+          ? _value.dragEnabled
+          : dragEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       imagesWithDominatingColor: null == imagesWithDominatingColor
           ? _value.imagesWithDominatingColor
           : imagesWithDominatingColor // ignore: cast_nullable_to_non_nullable
@@ -69,7 +77,9 @@ abstract class _$$ImagesStateImplCopyWith<$Res>
       __$$ImagesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ImageWithDominatingColor> imagesWithDominatingColor});
+  $Res call(
+      {bool dragEnabled,
+      List<ImageWithDominatingColor> imagesWithDominatingColor});
 }
 
 /// @nodoc
@@ -85,9 +95,14 @@ class __$$ImagesStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? dragEnabled = null,
     Object? imagesWithDominatingColor = null,
   }) {
     return _then(_$ImagesStateImpl(
+      dragEnabled: null == dragEnabled
+          ? _value.dragEnabled
+          : dragEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       imagesWithDominatingColor: null == imagesWithDominatingColor
           ? _value._imagesWithDominatingColor
           : imagesWithDominatingColor // ignore: cast_nullable_to_non_nullable
@@ -100,10 +115,14 @@ class __$$ImagesStateImplCopyWithImpl<$Res>
 
 class _$ImagesStateImpl implements _ImagesState {
   const _$ImagesStateImpl(
-      {final List<ImageWithDominatingColor> imagesWithDominatingColor =
+      {this.dragEnabled = false,
+      final List<ImageWithDominatingColor> imagesWithDominatingColor =
           const []})
       : _imagesWithDominatingColor = imagesWithDominatingColor;
 
+  @override
+  @JsonKey()
+  final bool dragEnabled;
   final List<ImageWithDominatingColor> _imagesWithDominatingColor;
   @override
   @JsonKey()
@@ -116,7 +135,7 @@ class _$ImagesStateImpl implements _ImagesState {
 
   @override
   String toString() {
-    return 'ImagesState(imagesWithDominatingColor: $imagesWithDominatingColor)';
+    return 'ImagesState(dragEnabled: $dragEnabled, imagesWithDominatingColor: $imagesWithDominatingColor)';
   }
 
   @override
@@ -124,12 +143,14 @@ class _$ImagesStateImpl implements _ImagesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ImagesStateImpl &&
+            (identical(other.dragEnabled, dragEnabled) ||
+                other.dragEnabled == dragEnabled) &&
             const DeepCollectionEquality().equals(
                 other._imagesWithDominatingColor, _imagesWithDominatingColor));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
+  int get hashCode => Object.hash(runtimeType, dragEnabled,
       const DeepCollectionEquality().hash(_imagesWithDominatingColor));
 
   /// Create a copy of ImagesState
@@ -143,9 +164,12 @@ class _$ImagesStateImpl implements _ImagesState {
 
 abstract class _ImagesState implements ImagesState {
   const factory _ImagesState(
-          {final List<ImageWithDominatingColor> imagesWithDominatingColor}) =
+          {final bool dragEnabled,
+          final List<ImageWithDominatingColor> imagesWithDominatingColor}) =
       _$ImagesStateImpl;
 
+  @override
+  bool get dragEnabled;
   @override
   List<ImageWithDominatingColor> get imagesWithDominatingColor;
 
