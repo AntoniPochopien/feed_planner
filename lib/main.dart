@@ -1,12 +1,14 @@
 import 'package:feed_planner/di_module.dart';
 import 'package:feed_planner/l10n/application/cubit/language_cubit.dart';
 import 'package:feed_planner/l10n/l10n.dart';
+import 'package:feed_planner/local_storage/domain/i_local_storage_repository.dart';
 import 'package:feed_planner/navigation/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
   diInit();
+  await getIt<ILocalStorageRepository>().init();
   runApp(const FeedPlanner());
 }
 

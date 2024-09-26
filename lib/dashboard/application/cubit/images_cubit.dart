@@ -1,5 +1,6 @@
 import 'package:feed_planner/dashboard/domain/i_images_repository.dart';
 import 'package:feed_planner/dashboard/domain/image_with_dominating_color.dart';
+import 'package:feed_planner/local_storage/domain/i_local_storage_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,9 +10,20 @@ part 'images_cubit.freezed.dart';
 
 class ImagesCubit extends Cubit<ImagesState> {
   final IImagesRepository imagesRepository;
+  final ILocalStorageRepository localStorageRepository;
   ImagesCubit({
     required this.imagesRepository,
-  }) : super(const ImagesState());
+    required this.localStorageRepository,
+  }) : super(const ImagesState()) {
+    init();
+  }
+
+  void init() {
+    final images = localStorageRepository.readImages();
+    if (images != null) {
+      emit(state.copyWith(imagesWithDominatingColor: images));
+    }
+  }
 
   void pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -21,6 +33,7 @@ class ImagesCubit extends Cubit<ImagesState> {
           List<ImageWithDominatingColor>.from(state.imagesWithDominatingColor);
       images.add(ImageWithDominatingColor(xfile: image));
       emit(state.copyWith(imagesWithDominatingColor: images));
+      localStorageRepository.saveImages(images);
       _computeAndUpdateMissingColors();
     }
   }
@@ -32,6 +45,7 @@ class ImagesCubit extends Cubit<ImagesState> {
     images.removeAt(oldIndex);
     images.insert(newIndex, item);
     emit(state.copyWith(imagesWithDominatingColor: images));
+    localStorageRepository.saveImages(images);
   }
 
   void _computeAndUpdateMissingColors() async {
@@ -48,6 +62,7 @@ class ImagesCubit extends Cubit<ImagesState> {
       images.removeAt(index);
       images.insert(index, newImage);
       emit(state.copyWith(imagesWithDominatingColor: images));
+      localStorageRepository.saveImages(images);
     }
     emit(state.copyWith(dragEnabled: true));
   }

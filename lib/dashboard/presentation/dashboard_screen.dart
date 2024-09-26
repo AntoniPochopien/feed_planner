@@ -3,6 +3,7 @@ import 'package:feed_planner/dashboard/application/cubit/images_cubit.dart';
 import 'package:feed_planner/dashboard/domain/i_images_repository.dart';
 import 'package:feed_planner/dashboard/presentation/widgets/grid.dart';
 import 'package:feed_planner/di_module.dart';
+import 'package:feed_planner/local_storage/domain/i_local_storage_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,8 +48,10 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          ImagesCubit(imagesRepository: getIt<IImagesRepository>()),
+      create: (context) => ImagesCubit(
+        imagesRepository: getIt<IImagesRepository>(),
+        localStorageRepository: getIt<ILocalStorageRepository>(),
+      ),
       child: BlocBuilder<ImagesCubit, ImagesState>(
         builder: (context, state) => Scaffold(
             backgroundColor: const Color(0xFF121212),
