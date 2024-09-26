@@ -22,7 +22,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   image_picker: ^1.1.2
   image: ^4.2.0
-  flutter_draggable_gridview: ^0.0.12
+  reorderable_grid_view: ^2.2.8
 
 dev_dependencies:
   flutter_test:
